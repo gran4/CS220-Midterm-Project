@@ -38,12 +38,10 @@ int main(int argc, char* argv[])
         return RC_OPEN_FAILED;
     }
 
-    
     Image image = read_ppm(input_file);
     if (image.data == NULL) {
         return RC_INVALID_PPM;
     }
-    printf("%d   DKEMMDEKMED\n", argc);
 
     if (strcmp(argv[3], "pointilism") == 0) {
         if (argc != 4) {
@@ -68,6 +66,20 @@ int main(int argc, char* argv[])
         if (argc != 6) {
             return RC_INVALID_OP_ARGS;
         }
+        char *input_filename2 = argv[2];
+        FILE* input_file2 = fopen(input_filename2, "r");
+        if (input_file2 == NULL) {
+            return RC_OPEN_FAILED;
+        }
+        output_filename = argv[4];
+
+        Image image2 = read_ppm(input_file2);
+        if (image2.data == NULL) {
+            return RC_INVALID_PPM;
+        }
+        double alpha = atof(argv[5]);
+        image = blend(image, image2, alpha);
+
     } else if (strcmp(argv[3], "crop") == 0) {
         if (argc != 8) {
             return RC_INVALID_OP_ARGS;

@@ -24,6 +24,49 @@ Image grayscale( const Image in ){
 }
 
 
+Image blend( const Image in1, const Image in2 , double alpha ){
+    int larger_rows = in1.rows;
+    if(in2.rows > larger_rows){larger_rows = in2.rows; }
+    int larger_cols = in1.cols;
+    if(in2.cols > larger_cols){larger_cols = in2.cols; }
+
+    Image output = make_image(larger_rows, larger_cols);
+
+    for(int x=0; x<larger_rows; x++){
+        for(int y=0; y<larger_cols; y++){
+            int included_in1 = 0;
+            int included_in2 = 0;
+            Pixel p1;
+            Pixel p2;
+            if(x<in1.rows && y<in1.cols){
+                p1 = in1.data[x*in1.cols + y];
+                included_in1 = 1;
+            }
+            if(x<in2.rows && y<in2.cols){
+                p2 = in2.data[x*in2.cols + y];
+                included_in2 = 1;
+            }
+            if(included_in1 && included_in2){
+                output.data[x*output.cols + y].r = p1.r*alpha + p2.r*(1-alpha);
+                output.data[x*output.cols + y].g = p1.g*alpha + p2.g*(1-alpha);
+                output.data[x*output.cols + y].b = p1.b*alpha + p2.b*(1-alpha);
+            }else if(included_in1){
+                output.data[x*output.cols + y].r = p1.r;
+                output.data[x*output.cols + y].g = p1.g;
+                output.data[x*output.cols + y].b = p1.b;
+            }else if(included_in2){
+                output.data[x*output.cols + y].r = p2.r;
+                output.data[x*output.cols + y].g = p2.g;
+                output.data[x*output.cols + y].b = p2.b;
+            }
+        }
+    }
+    return output;
+}
+
+
+
+
 
 
 double *generate_gaussian(double sigma, int N){
@@ -72,6 +115,9 @@ void apply_gaussian(Image in, Image out, int row, int col, int N, double *gaussi
     out.data[i].g = g / total_weight;
     out.data[i].b = b / total_weight;
 }
+
+
+
 
 Image blur( const Image in , double sigma ){
     int N = (int)ceil(sigma * 10);
