@@ -138,6 +138,5 @@ void free_image(Image* im)
 {
     // Complete this function
     free(im->data);
-    // Replace the next line
-    free(im);
+    im->data = NULL;
 }

@@ -21,16 +21,15 @@ void print_usage(void);
 
 int main(int argc, char* argv[])
 {
+    // if arguments is less than 4, then files are missing. 
+    if (argc < 4) {
+        return RC_MISSING_FILENAME;
+    }
 
     // base cli arguments
     char *input_filename = argv[1];
     char *output_filename = argv[2];
     char operation[] = { '\0' };
-
-    // if arguments is less than 4, then files are missing. 
-    if (argc < 4) {
-        return RC_MISSING_FILENAME;
-    }
 
     // open input file 
     FILE* input_file = fopen(input_filename, "r");
@@ -61,7 +60,10 @@ int main(int argc, char* argv[])
             return RC_INVALID_OP_ARGS;
         }
         double sigma = atof(argv[4]);
-        image = blur(image, sigma);
+        Image image_t = blur(image, sigma);
+        free_image(&image);
+        image = image_t;
+        printf("After blur: %p\n", (void *)image.data);
     } else if (strcmp(argv[3], "blend") == 0) {
         if (argc != 6) {
             return RC_INVALID_OP_ARGS;
@@ -78,22 +80,29 @@ int main(int argc, char* argv[])
             return RC_INVALID_PPM;
         }
         double alpha = atof(argv[5]);
-        image = blend(image, image2, alpha);
+        Image image_t = blend(image, image2, alpha);
+        free_image(&image);
+        image = image_t;
+        free_image(&image2);
+        fclose(input_file2);
 
     } else if (strcmp(argv[3], "crop") == 0) {
         if (argc != 8) {
             return RC_INVALID_OP_ARGS;
         }
     }
-    FILE* output_file = fopen(output_filename, "w");
-    write_ppm(output_file, image);
-
-    if(ferror(output_file)){
-        return RC_WRITE_FAILED;
+    FILE *output_file = fopen(output_filename, "wb");
+    if (output_file == NULL) {
+        printf("DEJNNJEDJNEDJN");
+        return RC_OPEN_FAILED;
     }
+
+    write_ppm(output_file, image);
 
     fclose(output_file);
     fclose(input_file);
+    printf("Before final free: %p\n", (void *)image.data);
+    free_image(&image);
 
     return RC_SUCCESS; // Replace Me!
 }
