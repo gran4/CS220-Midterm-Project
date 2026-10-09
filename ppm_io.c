@@ -101,6 +101,7 @@ Image read_ppm(FILE* fp)
 int write_ppm(FILE* fp, const Image im)
 {
     // Complete this function
+    char output[2+im.rows*im.cols];
     
     // Replace the next two lines
     fprintf(stderr, "[ERROR] Function needs to be defined");
@@ -131,7 +132,7 @@ void output_dims(const Image im)
 void free_image(Image* im)
 {
     // Complete this function
-
+    free(im->data);
     // Replace the next line
     free(im);
 }
