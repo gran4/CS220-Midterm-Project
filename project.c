@@ -57,10 +57,13 @@ int main(int argc, char* argv[])
         if (argc != 4) {
             return RC_INVALID_OP_ARGS;
         }
+        image = grayscale(image);
     } else if (strcmp(argv[3], "blur") == 0) {
         if (argc != 5) {
             return RC_INVALID_OP_ARGS;
         }
+        double sigma = atof(argv[4]);
+        image = blur(image, sigma);
     } else if (strcmp(argv[3], "blend") == 0) {
         if (argc != 6) {
             return RC_INVALID_OP_ARGS;
@@ -70,9 +73,13 @@ int main(int argc, char* argv[])
             return RC_INVALID_OP_ARGS;
         }
     }
-    image = grayscale(image);
     FILE* output_file = fopen(output_filename, "w");
     write_ppm(output_file, image);
+
+    if(ferror(output_file)){
+        return RC_WRITE_FAILED;
+    }
+
     fclose(output_file);
     fclose(input_file);
 
