@@ -101,11 +101,16 @@ Image read_ppm(FILE* fp)
 int write_ppm(FILE* fp, const Image im)
 {
     // Complete this function
-    char output[2+im.rows*im.cols];
+    fprintf(fp, "P6\n");
+    fprintf(fp, "%d %d\n", im.cols, im.rows);
+    fprintf(fp, "255\n");
     
-    // Replace the next two lines
-    fprintf(stderr, "[ERROR] Function needs to be defined");
-    return 0;
+    for(int i=0; i<im.rows*im.cols; i++){
+        Pixel p = im.data[i];
+        unsigned char rgb[3] = {p.r, p.g, p.b};
+        fwrite(rgb, 1, 3, fp);
+    }
+    return 1;
 }
 
 /* allocate a new image of the specified size;

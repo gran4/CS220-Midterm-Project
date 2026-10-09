@@ -23,8 +23,8 @@ int main(int argc, char* argv[])
 {
 
     // base cli arguments
-    char input_filename[] = { '\0' };
-    char output_filename[] = { '\0' };
+    char *input_filename = argv[1];
+    char *output_filename = argv[2];
     char operation[] = { '\0' };
 
     // if arguments is less than 4, then files are missing. 
@@ -43,6 +43,7 @@ int main(int argc, char* argv[])
     if (image.data == NULL) {
         return RC_INVALID_PPM;
     }
+    printf("%d   DKEMMDEKMED\n", argc);
 
     if (strcmp(argv[3], "pointilism") == 0) {
         if (argc != 4) {
@@ -69,6 +70,11 @@ int main(int argc, char* argv[])
             return RC_INVALID_OP_ARGS;
         }
     }
+    image = grayscale(image);
+    FILE* output_file = fopen(output_filename, "w");
+    write_ppm(output_file, image);
+    fclose(output_file);
+    fclose(input_file);
 
     return RC_SUCCESS; // Replace Me!
 }
