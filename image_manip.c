@@ -57,6 +57,10 @@ Image blend( const Image in1, const Image in2 , double alpha ){
                 output.data[x*output.cols + y].r = p2.r;
                 output.data[x*output.cols + y].g = p2.g;
                 output.data[x*output.cols + y].b = p2.b;
+            }else {
+                output.data[x*output.cols + y].r = 0;
+                output.data[x*output.cols + y].g = 0;
+                output.data[x*output.cols + y].b = 0;
             }
         }
     }
@@ -70,8 +74,6 @@ Image blend( const Image in1, const Image in2 , double alpha ){
 
 double *generate_gaussian(double sigma, int N){
     double *gaussian_matrix = malloc(N*N*sizeof(double));
-    printf("%d ", N*N);
-
     for(int x=0; x<N; x++){
         for(int y=0; y<N; y++){
             int center = N / 2;
@@ -124,7 +126,6 @@ Image blur( const Image in , double sigma ){
         N++;
     }
     double *gaussian_matrix = generate_gaussian(sigma, N);
-    
     Image out = make_image(in.rows, in.cols);
 
     for(int row=0; row<in.rows; row++){

@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 // Return (exit) codes
 #define RC_SUCCESS 0
@@ -60,6 +61,10 @@ int main(int argc, char* argv[])
             return RC_INVALID_OP_ARGS;
         }
         double sigma = atof(argv[4]);
+        if(!isfinite(sigma) || sigma <= 0){
+            fprintf(stderr, "Error: sigma must be positive and finite\n");
+            return RC_OP_ARGS_RANGE_ERR;
+        }
         Image image_t = blur(image, sigma);
         free_image(&image);
         image = image_t;
@@ -80,6 +85,10 @@ int main(int argc, char* argv[])
             return RC_INVALID_PPM;
         }
         double alpha = atof(argv[5]);
+        if(alpha < 0 || alpha > 1 || !isfinite(alpha)){
+            fprintf(stderr, "Error: alpha must be between 0 and 1\n");
+            return RC_OP_ARGS_RANGE_ERR;
+        }
         Image image_t = blend(image, image2, alpha);
         free_image(&image);
         image = image_t;
@@ -90,11 +99,15 @@ int main(int argc, char* argv[])
         if (argc != 8) {
             return RC_INVALID_OP_ARGS;
         }
+    } else{
+        fprintf(stderr, "Error: unsupported operation\n");
+        free_image(&image);
+        fclose(input_file);
+        return RC_INVALID_OPERATION;
     }
     FILE *output_file = fopen(output_filename, "wb");
     if (output_file == NULL) {
-        printf("DEJNNJEDJNEDJN");
-        return RC_OPEN_FAILED;
+        return RC_WRITE_FAILED;
     }
 
     write_ppm(output_file, image);
