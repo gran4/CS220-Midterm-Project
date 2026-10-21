@@ -85,7 +85,6 @@ int main(int argc, char* argv[])
         Image image_t = blur(image, sigma);
         free_image(&image);
         image = image_t;
-        printf("After blur: %p\n", (void *)image.data);
     } else if (strcmp(argv[3], "blend") == 0) {
         if (argc != 6) {
             fclose(input_file);
@@ -147,14 +146,16 @@ int main(int argc, char* argv[])
         return RC_WRITE_FAILED;
     }
 
-    write_ppm(output_file, image);
-
+    int write_ok = write_ppm(output_file, image);
     fclose(output_file);
     fclose(input_file);
-    printf("Before final free: %p\n", (void *)image.data);
     free_image(&image);
 
-    return RC_SUCCESS; // Replace Me!
+    if (!write_ok) {
+        fprintf(stderr, "Error: could not write output file\n");
+        return RC_WRITE_FAILED;
+    }
+    return RC_SUCCESS;
 }
 
 void print_usage(void)

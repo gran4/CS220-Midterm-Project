@@ -101,14 +101,18 @@ Image read_ppm(FILE* fp)
 int write_ppm(FILE* fp, const Image im)
 {
     // Complete this function
-    fprintf(fp, "P6\n");
-    fprintf(fp, "%d %d\n", im.cols, im.rows);
-    fprintf(fp, "255\n");
+    int t = fprintf(fp, "P6\n%d %d\n255\n", im.cols, im.rows);
+    if (t < 0) {
+        return 0;
+    }
     
     for(int i=0; i<im.rows*im.cols; i++){
         Pixel p = im.data[i];
         unsigned char rgb[3] = {p.r, p.g, p.b};
-        fwrite(rgb, 1, 3, fp);
+        int t = fwrite(rgb, 1, 3, fp);
+        if(t != 3){
+            return 0;
+        }
     }
     return 1;
 }
