@@ -31,7 +31,6 @@ int main(int argc, char* argv[])
     // base cli arguments
     char *input_filename = argv[1];
     char *output_filename = argv[2];
-    char operation[] = { '\0' };
 
     // open input file 
     FILE* input_file = fopen(input_filename, "r");
@@ -147,11 +146,11 @@ int main(int argc, char* argv[])
     }
 
     int write_ok = write_ppm(output_file, image);
-    fclose(output_file);
+    int close_ok = fclose(output_file);
     fclose(input_file);
     free_image(&image);
 
-    if (!write_ok) {
+    if (!write_ok || close_ok == EOF) {
         fprintf(stderr, "Error: could not write output file\n");
         return RC_WRITE_FAILED;
     }
