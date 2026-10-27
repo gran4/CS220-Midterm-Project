@@ -149,5 +149,10 @@ Image crop( const Image in , Point top_left , Point bot_right ){
     int new_rows = bot_right.y - top_left.y;
     int new_cols = bot_right.x - top_left.x;
     Image out = make_image(new_rows, new_cols);
+    for(int row=0; row<new_rows; row++){
+        for(int col=0; col<new_cols; col++){
+            out.data[row*new_cols + col] = in.data[row*in.cols + col];
+        }
+    }
     return out;
 }
