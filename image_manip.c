@@ -151,7 +151,7 @@ Image crop( const Image in , Point top_left , Point bot_right ){
     Image out = make_image(new_rows, new_cols);
     for(int row=0; row<new_rows; row++){
         for(int col=0; col<new_cols; col++){
-            out.data[row*new_cols + col] = in.data[row*in.cols + col];
+            out.data[row*new_cols + col] = in.data[(row+top_left.y)*in.cols + col+top_left.x];
         }
     }
     return out;
