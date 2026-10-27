@@ -162,7 +162,7 @@ Image rotate_ccw( const Image in ){
     Image out = make_image(in.cols, in.rows);
     for(int row=0; row<out.rows; row++){
         for(int col=0; col<out.cols; col++){
-            out.data[row*out.cols + col] = in.data[col*in.cols + row];
+            out.data[row*out.cols + col] = in.data[col*in.cols + (in.cols-1-row)];
         }
     }
     return out;
