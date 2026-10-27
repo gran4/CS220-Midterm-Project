@@ -156,3 +156,9 @@ Image crop( const Image in , Point top_left , Point bot_right ){
     }
     return out;
 }
+
+
+Image rotate_ccw( const Image in ){
+    Image out = make_image(in.cols, in.rows);
+    return out;
+}
