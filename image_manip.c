@@ -160,5 +160,10 @@ Image crop( const Image in , Point top_left , Point bot_right ){
 
 Image rotate_ccw( const Image in ){
     Image out = make_image(in.cols, in.rows);
+    for(int row=0; row<out.rows; row++){
+        for(int col=0; col<out.cols; col++){
+            out.data[row*out.cols + col] = in.data[col*in.cols + row];
+        }
+    }
     return out;
 }
