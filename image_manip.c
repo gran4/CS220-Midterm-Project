@@ -172,5 +172,10 @@ Image rotate_ccw( const Image in ){
 Image pointilism( const Image in , unsigned int seed ){
     Image out = make_image(in.rows, in.cols);
     srand(seed);
+    for(int i=0; i<in.rows*in.cols; i++){
+        out.data[i].r = 0;
+        out.data[i].g = 0;
+        out.data[i].b = 0;
+    }
     return out;
 }
