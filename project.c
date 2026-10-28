@@ -52,6 +52,9 @@ int main(int argc, char* argv[])
             fprintf(stderr, "Error: pointilism requires no additional arguments\n");
             return RC_INVALID_OP_ARGS;
         }
+        Image image_t = pointilism(image, 1);
+        free_image(&image);
+        image = image_t;
     } else if (strcmp(argv[3], "rotate-ccw") == 0) {
         if (argc != 4) {
             fclose(input_file);
