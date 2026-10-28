@@ -167,3 +167,10 @@ Image rotate_ccw( const Image in ){
     }
     return out;
 }
+
+
+Image pointilism( const Image in , unsigned int seed ){
+    Image out = make_image(in.rows, in.cols);
+    srand(seed);
+    return out;
+}
