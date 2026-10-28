@@ -115,8 +115,8 @@ int main(int argc, char* argv[])
             free_image(&image2);
             return RC_INVALID_PPM;
         }
-        double alpha = atof(argv[5]);
-        if(alpha < 0 || alpha > 1 || !isfinite(alpha)){
+        double alpha;
+        if(sscanf(argv[5], "%lf", &alpha) != 1 || alpha < 0 || alpha > 1 || !isfinite(alpha)){
             fclose(input_file);
             fclose(input_file2);
             free_image(&image);
