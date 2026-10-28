@@ -184,7 +184,7 @@ Image pointilism( const Image in , unsigned int seed ){
         int radius = rand() % 5 + 1;
         for(int r=row-radius; r<=row+radius; r++){
             for(int c=col-radius; c<=col+radius; c++){
-                if(r >= 0 && r < in.rows && c >= 0 && c < in.cols){
+                if((r-row)*(r-row) + (c-col)*(c-col) <= radius*radius && r >= 0 && r < in.rows && c >= 0 && c < in.cols){
                     out.data[r*in.cols + c] = in.data[row*in.cols + col];
                 }
             }
