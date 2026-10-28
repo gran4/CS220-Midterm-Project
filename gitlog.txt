@@ -1,0 +1,205 @@
+commit 58d197fdd315bba02aa549bf6abb19544f806284
+Author: ilovecrayons <huangfeiyang2008@gmail.com>
+Date:   Wed Oct 28 17:46:41 2026 -0400
+
+    feat(README): updated progress
+
+commit fdfc050a032e537b75c91b076c7ba60f2eb3d859
+Author: ilovecrayons <huangfeiyang2008@gmail.com>
+Date:   Wed Oct 28 17:42:43 2026 -0400
+
+    chore(styling): formatting + styling improvements
+
+commit 0ffc4ddbbac8073e1f66d8a62930358c4f3e8756
+Author: ilovecrayons <huangfeiyang2008@gmail.com>
+Date:   Wed Oct 28 03:28:26 2026 -0400
+
+    fix(main): reject non number alpha
+
+commit a60d8787bae12362f95274558c7e47c47d53007c
+Author: ilovecrayons <huangfeiyang2008@gmail.com>
+Date:   Wed Oct 28 02:56:36 2026 -0400
+
+    feat(main): run crop
+
+commit aff641012952943f0aa8975599112c6c41476d38
+Author: ilovecrayons <huangfeiyang2008@gmail.com>
+Date:   Wed Oct 28 02:24:03 2026 -0400
+
+    feat(main): check crop corners
+
+commit e3fedb5c0dfa66b00fc542255c8d25d83faf4a91
+Author: ilovecrayons <huangfeiyang2008@gmail.com>
+Date:   Wed Oct 28 01:50:57 2026 -0400
+
+    feat(main): read crop corners
+
+commit 2d447c566b935d5768a5e6f4711658e116d899ea
+Author: ilovecrayons <huangfeiyang2008@gmail.com>
+Date:   Wed Oct 28 01:20:22 2026 -0400
+
+    feat(main): run pointilism
+
+commit 4c2dc2d33f70ca118fe106fc539fa486035123ff
+Author: ilovecrayons <huangfeiyang2008@gmail.com>
+Date:   Wed Oct 28 00:38:45 2026 -0400
+
+    feat(main): run rotate-ccw
+
+commit 46a885fa531c053672c28517cda102128140ee3d
+Author: ilovecrayons <huangfeiyang2008@gmail.com>
+Date:   Wed Oct 28 00:01:16 2026 -0400
+
+    feat(pointilism): make dots round
+
+commit d8ec05aa97861dc0f810cf9176d74a44e6ca7a82
+Author: ilovecrayons <huangfeiyang2008@gmail.com>
+Date:   Tue Oct 27 23:17:38 2026 -0400
+
+    feat(pointilism): random dot radius
+
+commit 4f482d2dc63a6814e49fd13c489613e13102a0dc
+Author: ilovecrayons <huangfeiyang2008@gmail.com>
+Date:   Tue Oct 27 22:40:35 2026 -0400
+
+    feat(pointilism): draw square dots
+
+commit 8cce76c16be250e9983adce50a3ebbe68b1af717
+Author: ilovecrayons <huangfeiyang2008@gmail.com>
+Date:   Tue Oct 27 21:57:01 2026 -0400
+
+    feat(pointilism): pick random pixels
+
+commit 7bedb72a24c6b42d6d810db4a2a0e01af2a4c9ca
+Author: ilovecrayons <huangfeiyang2008@gmail.com>
+Date:   Tue Oct 27 21:16:48 2026 -0400
+
+    feat(pointilism): start from black image
+
+commit 2e9e448be7d59da02a95685eebf514d0487c0572
+Author: ilovecrayons <huangfeiyang2008@gmail.com>
+Date:   Tue Oct 27 20:33:27 2026 -0400
+
+    feat(pointilism): allocate output and seed rng
+
+commit 445b3f2b0140509ab71b6573974db8b37cdf2526
+Author: ilovecrayons <huangfeiyang2008@gmail.com>
+Date:   Tue Oct 27 19:57:05 2026 -0400
+
+    fix(rotate): flip to counter clockwise
+
+commit b84183d25a22cc4d1aad1c1c911b84db297c541f
+Author: ilovecrayons <huangfeiyang2008@gmail.com>
+Date:   Tue Oct 27 19:24:57 2026 -0400
+
+    feat(rotate): copy pixels
+
+commit e001c0fadc8a2209c29cb77954d3f1b25c610c15
+Author: ilovecrayons <huangfeiyang2008@gmail.com>
+Date:   Tue Oct 27 18:44:49 2026 -0400
+
+    feat(rotate): allocate rotated image
+
+commit 93820d669503780cf653ea66180d738a80305c36
+Author: ilovecrayons <huangfeiyang2008@gmail.com>
+Date:   Tue Oct 27 18:11:06 2026 -0400
+
+    feat(crop): use top left offset
+
+commit 3b2fcd1cfeb42a36557b28dde9f122c426717dfd
+Author: ilovecrayons <huangfeiyang2008@gmail.com>
+Date:   Tue Oct 27 17:32:00 2026 -0400
+
+    feat(crop): copy pixels
+
+commit 44bde9f7b253beab177fb1fc6928b671862d8203
+Author: ilovecrayons <huangfeiyang2008@gmail.com>
+Date:   Tue Oct 27 17:00:00 2026 -0400
+
+    feat(crop): allocate cropped image
+
+commit 81a6730b34ce142250d9cbe75f4f0c6677811519
+Author: Grant-Hur-asdrp-account <grant.hur@students.asdrp.org>
+Date:   Sat Oct 24 22:11:40 2026 -0400
+
+    Fixing a warning
+
+commit be2336ab5507b9608a904e27cf928c1d65520be0
+Author: Grant-Hur-asdrp-account <grant.hur@students.asdrp.org>
+Date:   Wed Oct 21 11:14:21 2026 -0400
+
+    (void *)image.data);
+
+commit 99dc3ce481f0989b4211ec5bd6b6e4a1a59c7b93
+Author: Grant-Hur-asdrp-account <grant.hur@students.asdrp.org>
+Date:   Wed Oct 21 10:59:14 2026 -0400
+
+    Adding Error messages and closing / freeing stuff
+
+commit db930ad7b2f0c1947e622941bca0e2800754e574
+Author: Grant-Hur-asdrp-account <grant.hur@students.asdrp.org>
+Date:   Thu Oct 15 07:52:28 2026 -0400
+
+    Updates to the Error Handling
+
+commit 02315bd58c1e7a916a050b87f0322dd1fda8078f
+Author: ilovecrayons <huangfeiyang2008@gmail.com>
+Date:   Wed Oct 14 13:02:02 2026 -0400
+
+    docs(README): development plan
+
+commit 15af5036e7d32ec0ac01d0d02357ba89499172f5
+Author: ilovecrayons <huangfeiyang2008@gmail.com>
+Date:   Wed Oct 14 12:36:30 2026 -0400
+
+    chore: added gitignore
+
+commit 5d1e7cdc210e1805fe3cf97ad04f7e4504282eb2
+Author: gran4 <g.hur.personal@gmail.com>
+Date:   Fri Oct 9 16:46:11 2026 -0400
+
+    Fixing valgrind errors
+
+commit 1a2a5e5c326e0bbc98ba38cac1dab80861b031f3
+Author: Grant-Hur-asdrp-account <grant.hur@students.asdrp.org>
+Date:   Fri Oct 9 16:20:07 2026 -0400
+
+    Adding the blend function
+
+commit bac9c405b3eb928fb004afe993f310e7917a1d68
+Author: Grant-Hur-asdrp-account <grant.hur@students.asdrp.org>
+Date:   Fri Oct 9 15:47:07 2026 -0400
+
+    Implmenting Blur function
+
+commit 84bd8218b073525e006370cef4fadbc5894b6575
+Author: Grant-Hur-asdrp-account <grant.hur@students.asdrp.org>
+Date:   Fri Oct 9 14:48:29 2026 -0400
+
+    Adding basic write to ppm and grayscale
+
+commit d2e29907c76efda3a8058ecdfde26aa822e10c8b
+Author: ilovecrayons <huangfeiyang2008@gmail.com>
+Date:   Fri Oct 9 13:10:11 2026 -0400
+
+    feat(ppm): image processing :)
+
+commit 8d1489676821af4999476baadfb8a116ba4940d3
+Author: ilovecrayons <huangfeiyang2008@gmail.com>
+Date:   Fri Oct 9 12:57:44 2026 -0400
+
+    Initial Commit
+    
+    Co-authored-by: Grant Hur <fifttim@gmail.com>
+
+commit 248601b8946d06d4e2fea550836baa06107c7d02
+Author: gran4 <g.hur.personal@gmail.com>
+Date:   Fri Oct 9 12:16:20 2026 -0400
+
+    Adding initial files
+
+commit e3660e0815556b26c96dd39fe10fce08bc6aae50
+Author: Grant Hur <fifttim@gmail.com>
+Date:   Fri Oct 9 12:06:49 2026 -0400
+
+    Initial commit
