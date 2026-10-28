@@ -177,5 +177,11 @@ Image pointilism( const Image in , unsigned int seed ){
         out.data[i].g = 0;
         out.data[i].b = 0;
     }
+    int dots = in.rows * in.cols * 3 / 100;
+    for(int i=0; i<dots; i++){
+        int row = rand() % in.rows;
+        int col = rand() % in.cols;
+        out.data[row*in.cols + col] = in.data[row*in.cols + col];
+    }
     return out;
 }
