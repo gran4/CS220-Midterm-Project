@@ -59,6 +59,9 @@ int main(int argc, char* argv[])
             fprintf(stderr, "Error: rotate-ccw requires no additional arguments\n");
             return RC_INVALID_OP_ARGS;
         }
+        Image image_t = rotate_ccw(image);
+        free_image(&image);
+        image = image_t;
     } else if (strcmp(argv[3], "grayscale") == 0) {
         if (argc != 4) {
             fclose(input_file);
