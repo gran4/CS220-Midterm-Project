@@ -153,6 +153,9 @@ int main(int argc, char* argv[])
             fprintf(stderr, "Error: crop corners are outside the image or out of order\n");
             return RC_OP_ARGS_RANGE_ERR;
         }
+        Image image_t = crop(image, top_left, bot_right);
+        free_image(&image);
+        image = image_t;
     } else{
         fprintf(stderr, "Error: unsupported operation\n");
         free_image(&image);
