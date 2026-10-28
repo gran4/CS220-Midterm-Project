@@ -11,7 +11,9 @@
 // declared in image_manip.h go here! //
 ////////////////////////////////////////
 
+// image to grayscale 
 Image grayscale( const Image in ){
+    // iterate through all pixels and apply grayscale conversion formula 
     for(int i=0; i<in.rows*in.cols; i++){
         Pixel p = in.data[i];
         unsigned char gray_scale = (0.299 * p.r + 0.587*p.g + 0.114*p.b);
@@ -22,21 +24,27 @@ Image grayscale( const Image in ){
     return in;
 }
 
-
+// overlay two images together 
 Image blend( const Image in1, const Image in2 , double alpha ){
+    
+    // find the output size
     int larger_rows = in1.rows;
     if(in2.rows > larger_rows){larger_rows = in2.rows; }
     int larger_cols = in1.cols;
     if(in2.cols > larger_cols){larger_cols = in2.cols; }
 
+    // create ans 
     Image output = make_image(larger_rows, larger_cols);
-
+    
+    // handle each pixel position
     for(int x=0; x<larger_rows; x++){
         for(int y=0; y<larger_cols; y++){
             int included_in1 = 0;
             int included_in2 = 0;
             Pixel p1;
             Pixel p2;
+            
+            // check if each image has this position 
             if(x<in1.rows && y<in1.cols){
                 p1 = in1.data[x*in1.cols + y];
                 included_in1 = 1;
@@ -45,6 +53,7 @@ Image blend( const Image in1, const Image in2 , double alpha ){
                 p2 = in2.data[x*in2.cols + y];
                 included_in2 = 1;
             }
+            // blend pixels found in both images 
             if(included_in1 && included_in2){
                 output.data[x*output.cols + y].r = p1.r*alpha + p2.r*(1-alpha);
                 output.data[x*output.cols + y].g = p1.g*alpha + p2.g*(1-alpha);
@@ -73,6 +82,7 @@ Image blend( const Image in1, const Image in2 , double alpha ){
 
 
 double *generate_gaussian(double sigma, int N){
+    // apply blur formula as specified 
     double *gaussian_matrix = malloc(N*N*sizeof(double));
     for(int x=0; x<N; x++){
         for(int y=0; y<N; y++){
@@ -89,6 +99,7 @@ double *generate_gaussian(double sigma, int N){
 void apply_gaussian(Image in, Image out, int row, int col, int N, double *gaussian_matrix){
     int center = N/2;
 
+    // add nearby pixels using the weights
     double total_weight = 0;
     double r = 0;
     double g = 0;
@@ -97,11 +108,13 @@ void apply_gaussian(Image in, Image out, int row, int col, int N, double *gaussi
         for(int y=0; y<N; y++){
             int neighbor_row = row + (x - center);
             int neighbor_col = col + (y - center);
+            // edge case skip pixels outside the image
             if(neighbor_row < 0 || neighbor_col < 0){
                 continue ;
             }else if(neighbor_row >= in.rows || neighbor_col >= in.cols){
                 continue ;
             }
+
             Pixel p2 = in.data[neighbor_row * in.cols + neighbor_col];
             double gaussian_multiplier = gaussian_matrix[x * N + y];
             total_weight += gaussian_multiplier;
@@ -112,6 +125,7 @@ void apply_gaussian(Image in, Image out, int row, int col, int N, double *gaussi
         }
     }
     int i = row*in.cols + col;
+    // apply final output 
     out.data[i].r = r / total_weight;
     out.data[i].g = g / total_weight;
     out.data[i].b = b / total_weight;
@@ -119,7 +133,7 @@ void apply_gaussian(Image in, Image out, int row, int col, int N, double *gaussi
 
 
 
-
+// calls gaussian blurring as implemented above 
 Image blur( const Image in , double sigma ){
     int N = (int)ceil(sigma * 10);
     if (N % 2 == 0) {
@@ -127,7 +141,8 @@ Image blur( const Image in , double sigma ){
     }
     double *gaussian_matrix = generate_gaussian(sigma, N);
     Image out = make_image(in.rows, in.cols);
-
+    
+    // iterate through everything and apply  
     for(int row=0; row<in.rows; row++){
         for(int col=0; col<in.cols; col++){
             apply_gaussian(in, out, row, col, N, gaussian_matrix);
@@ -144,11 +159,14 @@ Image blur( const Image in , double sigma ){
 
 
 
-
+// crops image 
 Image crop( const Image in , Point top_left , Point bot_right ){
+    // specify output dims 
     int new_rows = bot_right.y - top_left.y;
     int new_cols = bot_right.x - top_left.x;
     Image out = make_image(new_rows, new_cols);
+
+    // copy each pixel from input 
     for(int row=0; row<new_rows; row++){
         for(int col=0; col<new_cols; col++){
             out.data[row*new_cols + col] = in.data[(row+top_left.y)*in.cols + col+top_left.x];
@@ -157,11 +175,14 @@ Image crop( const Image in , Point top_left , Point bot_right ){
     return out;
 }
 
-
+// rotate counterclockwise
 Image rotate_ccw( const Image in ){
+    // swap the image dims 
     Image out = make_image(in.cols, in.rows);
     for(int row=0; row<out.rows; row++){
+        
         for(int col=0; col<out.cols; col++){
+            // copy each pixel after rotation 
             out.data[row*out.cols + col] = in.data[col*in.cols + (in.cols-1-row)];
         }
     }
@@ -172,18 +193,25 @@ Image rotate_ccw( const Image in ){
 Image pointilism( const Image in , unsigned int seed ){
     Image out = make_image(in.rows, in.cols);
     srand(seed);
+
+    // make the image black
     for(int i=0; i<in.rows*in.cols; i++){
         out.data[i].r = 0;
         out.data[i].g = 0;
         out.data[i].b = 0;
     }
+    
     int dots = in.rows * in.cols * 3 / 100;
+
+    // add random dots
     for(int i=0; i<dots; i++){
+        // randomize placement 
         int row = rand() % in.rows;
         int col = rand() % in.cols;
         int radius = rand() % 5 + 1;
         for(int r=row-radius; r<=row+radius; r++){
             for(int c=col-radius; c<=col+radius; c++){
+                // copy the source pixel only when the point is inside the dot and the overall dimension of the image
                 if((r-row)*(r-row) + (c-col)*(c-col) <= radius*radius && r >= 0 && r < in.rows && c >= 0 && c < in.cols){
                     out.data[r*in.cols + c] = in.data[row*in.cols + col];
                 }
