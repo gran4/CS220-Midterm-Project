@@ -137,6 +137,15 @@ int main(int argc, char* argv[])
             fprintf(stderr, "Error: crop requires exactly four coordinates: left, top, right, bottom\n");
             return RC_INVALID_OP_ARGS;
         }
+        Point top_left;
+        Point bot_right;
+        if (sscanf(argv[4], "%d", &top_left.x) != 1 || sscanf(argv[5], "%d", &top_left.y) != 1
+            || sscanf(argv[6], "%d", &bot_right.x) != 1 || sscanf(argv[7], "%d", &bot_right.y) != 1) {
+            fclose(input_file);
+            free_image(&image);
+            fprintf(stderr, "Error: crop coordinates must be whole numbers\n");
+            return RC_OP_ARGS_RANGE_ERR;
+        }
     } else{
         fprintf(stderr, "Error: unsupported operation\n");
         free_image(&image);
