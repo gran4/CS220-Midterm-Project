@@ -146,6 +146,13 @@ int main(int argc, char* argv[])
             fprintf(stderr, "Error: crop coordinates must be whole numbers\n");
             return RC_OP_ARGS_RANGE_ERR;
         }
+        if (top_left.x < 0 || top_left.y < 0 || bot_right.x > image.cols || bot_right.y > image.rows
+            || top_left.x >= bot_right.x || top_left.y >= bot_right.y) {
+            fclose(input_file);
+            free_image(&image);
+            fprintf(stderr, "Error: crop corners are outside the image or out of order\n");
+            return RC_OP_ARGS_RANGE_ERR;
+        }
     } else{
         fprintf(stderr, "Error: unsupported operation\n");
         free_image(&image);
